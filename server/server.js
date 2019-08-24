@@ -6,7 +6,10 @@ const app = express();
 app.use(express.static('dist'));
 
 app.get('/api', (req, res) => {
-    axios.get(`http://www.mocky.io/v2/5d5cba7e320000a5e4628f33?apikey=${process.env.APIKEY}`)
+    axios({
+        method : 'get',
+        url : 'https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+    })
         .then((result) => {
             res.send(result.data);
         })
@@ -15,5 +18,5 @@ app.get('/api', (req, res) => {
             res.send('An error occured.');
         })
 });
-
+ 
 module.exports = app;
